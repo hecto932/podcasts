@@ -1,0 +1,26 @@
+{
+  "name": "podcasts",
+  "version": "1.0.0",
+  "description": "A simple webapp using Next.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hecto932/podcasts.git"
+  },
+  "author": "Hector Flores <hecto932@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hecto932/podcasts/issues"
+  },
+  "homepage": "https://github.com/hecto932/podcasts#readme",
+  "dependencies": {
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
