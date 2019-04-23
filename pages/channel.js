@@ -54,6 +54,14 @@ export default class extends React.Component {
     });
   };
 
+  handleClosePodcast = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      openPodcast: null
+    })
+  } 
+
   render() {
     const { channel, audioClips, series, statusCode } = this.props;
     const { openPodcast } = this.state;
@@ -66,6 +74,7 @@ export default class extends React.Component {
         <Channel
           openPodcast={openPodcast}
           handleOpenPodcast={this.handleOpenPodcast}
+          handleClosePodcast={this.handleClosePodcast}
           channel={channel}
           audioClips={audioClips}
           series={series}
