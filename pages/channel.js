@@ -1,9 +1,15 @@
-import 'isomorphic-fetch';
-import Layout from '../components/Layout';
-import Channel from '../components/Channel';
-import Error from './_error';
+import "isomorphic-fetch";
+import Layout from "../components/Layout";
+import Channel from "../components/Channel";
+import Error from "./_error";
 
 export default class extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { openPodcast: null };
+  }
+
   static async getInitialProps({ query, res }) {
     let idChannel = query.id;
 
@@ -16,35 +22,54 @@ export default class extends React.Component {
 
       if (reqChannel.status >= 404) {
         res.statusCode = reqChannel.status;
-        return { channel: null, audioClips: null, series: null, statusCode: reqChannel.status }
+        return {
+          channel: null,
+          audioClips: null,
+          series: null,
+          statusCode: reqChannel.status
+        };
       }
-  
+
       let dataChannel = await reqChannel.json();
       let channel = dataChannel.body.channel;
-  
+
       let dataAudios = await reqAudios.json();
       let audioClips = dataAudios.body.audio_clips;
-  
+
       let dataSeries = await reqSeries.json();
       let series = dataSeries.body.channels;
-  
+
       return { channel, audioClips, series, statusCode: 200 };
     } catch (err) {
       res.statusCode = 503;
-      return { channel: null, audioClips: null, series: null, statusCode: 503 }
+      return { channel: null, audioClips: null, series: null, statusCode: 503 };
     }
   }
 
+  handleOpenPodcast = (event, podcast) => {
+    event.preventDefault();
+
+    this.setState({
+      openPodcast: podcast
+    });
+  };
+
   render() {
     const { channel, audioClips, series, statusCode } = this.props;
-
+    const { openPodcast } = this.state;
     if (statusCode !== 200) {
-      return <Error statusCode={statusCode} />
+      return <Error statusCode={statusCode} />;
     }
 
     return (
       <Layout title={channel.title}>
-        <Channel channel={channel} audioClips={audioClips} series={series} />
+        <Channel
+          openPodcast={openPodcast}
+          handleOpenPodcast={this.handleOpenPodcast}
+          channel={channel}
+          audioClips={audioClips}
+          series={series}
+        />
       </Layout>
     );
   }

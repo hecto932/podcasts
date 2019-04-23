@@ -10,7 +10,7 @@ export default class ChannelSeries extends React.Component {
             <h2>Series</h2>
             <div className="channels">
               {series.map(serie => (
-                <Link href={`/channel?id=${serie.id}`} prefetch>
+                <Link href={`/channel?id=${serie.id}`} prefetch key={serie.id}>
                   <a className="channel">
                     <img src={serie.urls.logo_image.original} alt="" />
                     <h2>{serie.title}</h2>

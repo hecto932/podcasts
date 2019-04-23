@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
-export default class ChannelAudio extends React.Component {
+export default class PodcastList extends React.Component {
   render() {
-    const { audioClips } = this.props;
+    const { audioClips, onClickPodcast } = this.props;
     return (
       <div>
         <h2>Ultimos Podcasts</h2>
         {audioClips.map(clip => (
           <Link href={`/podcast?id=${clip.id}`} prefetch key={clip.id}>
-            <a className="podcast">
+            <a className="podcast" onClick={(e) => onClickPodcast(e, clip)}>
               <h3>{clip.title}</h3>
               <div className="meta">
                 {Math.ceil(clip.duration / 60)} minutes
